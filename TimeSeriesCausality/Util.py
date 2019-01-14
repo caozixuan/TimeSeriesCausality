@@ -2,11 +2,14 @@
 from sklearn import preprocessing
 import numpy as np
 from scipy import *
+import os
 import scipy.stats
 import math
 import xlrd
 
 from simulate import generate_continue_data
+from fastn_cdf import fastncdf
+
 
 def asymmetricKL(P, Q):
     return sum(P * log(P / Q))  # calculate the kl divergence between P and Q
@@ -108,32 +111,46 @@ def decide_type(value, sigma):
         return 2
 
 
-def decide_type2(value):
-    if value < -0.3:
+def decide_type2(value,sigma):
+    if value < -0.84* sigma:
+        return -2
+    elif value >=-0.84 * sigma and value < -0.26 * sigma:
+        return -1
+    elif value >= -0.26 * sigma and value <= 0.26 * sigma:
         return 0
-    elif value >= -0.3 and value < -0.1:
+    elif value > 0.26 * sigma and value <= 0.84 * sigma:
         return 1
-    elif value >= -0.1 and value <= 0.1:
-        return 2
-    elif value > 0.1 and value <=0.3:
-        return 3
     else:
-        return 4
+        return 2
+
+
+def decide_type3(value,sigma):
+    if value < -0.68*sigma:
+        return 0
+    elif value >=-0.68*sigma and value <0.68*sigma:
+        return 1
+    elif value >= 0.68*sigma:
+        return 2
+    return 0
+
+
+
 
 
 def get_type_array(a):
     result = []
-    mean, sigma = calculate_mean_and_std(a)
+    mean, sigma = calculate_mean_and_std2(a)
     for element in a:
-        result.append(decide_type(element, sigma)+2)
+        result.append(decide_type3(element, sigma))
+        #result.append(decide_type2(element,sigma))
     return result
 
 
 def get_type_array2(a):
     result = []
-    mean, sigma = calculate_mean_and_std(a)
+    mean, sigma = calculate_mean_and_std2(a)
     for element in a:
-        result.append(decide_type2(element))
+        result.append(decide_type2(element,sigma))
     return result
 
 
@@ -182,11 +199,11 @@ def calculate_mean_and_std2(data):
     std = math.pow(std, 0.5)
     """
     length = len(data)
-    use_array = data[length - 10:]
-    return np.mean(use_array), np.std(use_array,ddof=1)
+    use_array = data
+    return np.mean(use_array), np.std(use_array, ddof=1)
 
 
-def mix_array(data1, type_array1, data2, type_array2, next_value):
+def mix_array(data1, type_array1, data2, type_array2, next_value, next_type):
     arrays = [[]]
     for i in range(0, len(type_array2)):
         if type_array1[i] == type_array2[i]:
@@ -203,8 +220,7 @@ def mix_array(data1, type_array1, data2, type_array2, next_value):
     target_index = 0
     max_p = 0
     for i in range(0, len(arrays)):
-        mean, std = calculate_mean_and_std(arrays[i])
-        p = decide_p(arrays[i], decide_type(next_value, sigma=std))
+        p = decide_p2(arrays[i], next_type)
         if p > max_p:
             max_p = p
             target_index = i
@@ -214,23 +230,68 @@ def mix_array(data1, type_array1, data2, type_array2, next_value):
     #    if abs(mean-next_value)<min_difference:
     #        min_difference = abs(mean-next_value)
     #        target_index = i
-    return arrays[target_index]
+    return arrays[target_index], max_p
+
+
+def change_to_normal_distribution(data, mean, std):
+    for i in range(0, len(data)):
+        data[i] = ((data[i]) - mean) / std
+    return data
+
+
+"""
+def decide_p(data, next_type):
+    mean, std = calculate_mean_and_std(data)
+    p = 0
+    normal = scipy.stats.norm(mean,std)
+    #print (-0.5 * std - mean) / std
+    if next_type == -2:
+        p = fastncdf((-1.5*std-mean)/std)
+    elif next_type == -1:
+        p = fastncdf((-0.5*std-mean)/std) - fastncdf((-1.5*std-mean)/std)
+    elif next_type == 0:
+        p = fastncdf((0.5*std-mean)/std) - fastncdf((-0.5*std-mean)/std)
+    elif next_type == 1:
+        p = fastncdf((1.5*std-mean)/std) - fastncdf((0.5*std-mean)/std)
+    elif next_type == 2:
+        p = 1 - fastncdf((1.5*std-mean)/std)
+    return p
+"""
 
 
 def decide_p(data, next_type):
-    mean, std = calculate_mean_and_std(data)
-    normal_distribution = scipy.stats.norm(mean, std)
+    mean, std = calculate_mean_and_std2(data)
     p = 0
+    # normal = scipy.stats.norm(mean,std)
+    # print (-0.5 * std - mean) / std
     if next_type == -2:
-        p = normal_distribution.cdf(-0.3)
+        p = fastncdf((-1.5 * std - mean) / std)
     elif next_type == -1:
-        p = normal_distribution.cdf(-0.1) - normal_distribution.cdf(-0.3)
+        p = fastncdf((-0.5 * std - mean) / std) - fastncdf((-1.5 * std - mean) / std)
     elif next_type == 0:
-        p = normal_distribution.cdf(0.1) - normal_distribution.cdf(-0.1)
+        p = fastncdf((0.5 * std - mean) / std) - fastncdf((-0.5 * std - mean) / std)
     elif next_type == 1:
-        p = normal_distribution.cdf(0.3) - normal_distribution.cdf(0.1)
+        p = fastncdf((1.5 * std - mean) / std) - fastncdf((0.5 * std - mean) / std)
     elif next_type == 2:
-        p = 1 - normal_distribution.cdf(0.3)
+        p = 1 - fastncdf((1.5 * std - mean) / std)
+    return p
+
+
+def decide_p2(data, next_type):
+    mean, std = calculate_mean_and_std2(data)
+    p = 0
+    # normal = scipy.stats.norm(mean,std)
+    # print (-0.5 * std - mean) / std
+    if next_type == -2:
+        p = fastncdf((-0.84 * std - mean) / std)
+    elif next_type == -1:
+        p = fastncdf((-0.26 * std - mean) / std) - fastncdf((-0.84 * std - mean) / std)
+    elif next_type == 0:
+        p = fastncdf((0.26 * std - mean) / std) - fastncdf((-0.26 * std - mean) / std)
+    elif next_type == 1:
+        p = fastncdf((0.84 * std - mean) / std) - fastncdf((0.26 * std - mean) / std)
+    elif next_type == 2:
+        p = 1 - fastncdf((0.84 * std - mean) / std)
     return p
 
 
@@ -247,15 +308,17 @@ def calculate_compress_length(p_value_array):
 def calculate_difference(cause, effect):
     cause_type = get_type_array(cause)
     effect_type = get_type_array(effect)
+    print count_type(cause_type)
+    print count_type(effect_type)
     effect_p_array = []
-    for i in range(10, len(effect) - 1):
-        effect_p_array.append(decide_p(effect[0:i], effect_type[i]))
-    effect_length = calculate_compress_length(effect_p_array)
     cause_effect_p_array = []
     for i in range(10, len(effect) - 1):
-        target_array = mix_array(effect[i - 10:i], effect_type[i - 10:i], cause[i - 10:i], cause_type[i - 10:i],
-                                 effect[i])
-        cause_effect_p_array.append(decide_p(target_array, effect_type[i]))
+        p1 = decide_p2(effect[i - 10:i], effect_type[i])
+        effect_p_array.append(p1)
+        target_array,p2 = mix_array(effect[i - 10:i], effect_type[i - 10:i], cause[i - 10:i], cause_type[i - 10:i],
+                                 effect[i], effect_type[i])
+        cause_effect_p_array.append(p2)
+    effect_length = calculate_compress_length(effect_p_array)
     cause_effect_length = calculate_compress_length(cause_effect_p_array)
     return effect_length - cause_effect_length
 
@@ -299,8 +362,8 @@ def exception_test():
 
 def test_simulation():
     counter = 0
-    for i in range(0,100):
-        cause, effect = generate_continue_data(100,random.randint(1,5))
+    for i in range(0, 100):
+        cause, effect = generate_continue_data(100, random.randint(1, 5))
         cause = normalize(cause)
         cause = zero_change(cause)
         effect = normalize(effect)
@@ -308,12 +371,11 @@ def test_simulation():
         cause2effect = calculate_difference(cause, effect)
         effect2cause = calculate_difference(effect, cause)
         print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
-        print 'effect' + ' -> ' + 'cause'+ ':' + str(effect2cause)
-        if cause2effect>effect2cause:
-            counter+=1
+        print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+        if cause2effect > effect2cause:
+            counter += 1
     print
     print counter
 
-
 #test_simulation()
-#real_data_test()
+# real_data_test()

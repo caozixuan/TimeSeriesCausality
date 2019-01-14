@@ -4,7 +4,7 @@ import numpy as np
 # generate continue cause and effect
 def generate_continue_data(length, shift):
     cause = []
-    main = np.random.normal(0, 10, length)
+    main = np.random.normal(0, 1, length)
     noise = np.random.normal(0, 0.1, length)
     for i in range(0, length):
         if i == 0:
@@ -12,8 +12,8 @@ def generate_continue_data(length, shift):
         else:
             cause.append(cause[i - 1] + main[i])
     effect = forward_shift_continue_data(cause, shift)
-    #for j in range(0, length):
-    #    effect[j] = effect[j] + noise[j]
+    for j in range(0, length):
+        effect[j] = effect[j] + noise[j]
     return cause, effect
 
 

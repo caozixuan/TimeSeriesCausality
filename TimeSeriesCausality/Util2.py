@@ -43,8 +43,8 @@ def mix_array(data1,type_array1,data2,type_array2,next_value, next_type):
     max_p = 0
     for i in range(0,len(arrays)):
         mean, std = calculate_mean_and_std2(arrays[i])
-        parameter_p = mean/4.0
-        p = get_b_p(4,next_type,parameter_p)
+        parameter_p = mean/2.0
+        p = get_b_p(2,next_type,parameter_p)
         if p>max_p:
             max_p=p
             target_index = i
@@ -60,19 +60,21 @@ def mix_array(data1,type_array1,data2,type_array2,next_value, next_type):
 def calculate_difference(cause, effect):
     cause_type = get_type_array(cause)
     effect_type = get_type_array(effect)
+    print count_type(cause_type)
+    print count_type(effect_type)
     effect_p_array = []
     for i in range(10, len(effect) - 1):
         mean, std = calculate_mean_and_std2(effect_type[0:i])
-        parameter_p = mean/4.0
-        effect_p_array.append(get_b_p(4,effect_type[i],parameter_p))
+        parameter_p = mean/2.0
+        effect_p_array.append(get_b_p(2,effect_type[i],parameter_p))
     effect_length = calculate_compress_length(effect_p_array)
     cause_effect_p_array = []
     for i in range(10, len(effect) - 1):
         target_array = mix_array(effect_type[i - 10:i], effect_type[i - 10:i], cause_type[i - 10:i], cause_type[i - 10:i],
                                  effect_type[i],effect_type[i])
         mean, std = calculate_mean_and_std2(target_array)
-        parameter_p = mean / 4.0
-        cause_effect_p_array.append(get_b_p(4, effect_type[i], parameter_p))
+        parameter_p = mean / 2.0
+        cause_effect_p_array.append(get_b_p(2, effect_type[i], parameter_p))
     cause_effect_length = calculate_compress_length(cause_effect_p_array)
     return effect_length - cause_effect_length
 
@@ -116,8 +118,8 @@ def real_data_test():
         data[i] = normalize(data[i])
         data[i] = zero_change(data[i])
     for i in range(1, 9):
-        cause2effect = calculate_difference2(data[i], data[0])
-        effect2cause = calculate_difference2(data[0], data[i])
+        cause2effect = calculate_difference(data[i], data[0])
+        effect2cause = calculate_difference(data[0], data[i])
         print data_name[i] + ' -> ' + data_name[0] + ':' + str(cause2effect)
         print data_name[0] + ' -> ' + data_name[i] + ':' + str(effect2cause)
         print

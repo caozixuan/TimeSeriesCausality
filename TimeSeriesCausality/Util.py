@@ -385,7 +385,7 @@ def exception_test():
 def test_simulation():
     counter = 0
     for i in range(0, 100):
-        cause, effect = generate_continue_data(100, random.randint(1, 5))
+        cause, effect = generate_continue_data(100, 20)
         cause = normalize(cause)
         cause = zero_change(cause)
         effect = normalize(effect)

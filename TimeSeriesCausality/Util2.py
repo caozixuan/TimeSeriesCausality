@@ -6,7 +6,7 @@ from collections import defaultdict
 import numpy as np
 from Util import calculate_mean_and_std2, decide_type, get_type_array, get_data, get_economy_data, map_data, normalize, \
     zero_change, calculate_compress_length, count_type, calculate_mean_and_std_with_weight
-from simulate import generate_continue_data
+from simulate import generate_continue_data,generate_continue_data2
 from snml import bernoulli, cbernoulli
 
 
@@ -63,6 +63,8 @@ def mix_array2(effect_type, cause_type, next_type):
     count_0 = 0
     count_2 = 0
     target_array = []
+    counter = 0
+    #target_array.extend(list(extra_array))
     for i in range(0, len(effect_type)):
         cur_element = 0
         cur_effect_type = effect_type[i]
@@ -83,10 +85,13 @@ def mix_array2(effect_type, cause_type, next_type):
                     else:
                         cur_element = 2
         target_array.append(cur_element)
+        if cur_effect_type!=cur_element:
+            counter+=1
         if cur_element == 0:
             count_0 += 1
         elif cur_element == 2:
             count_2 += 1
+    #print counter
     return target_array
 
 
@@ -137,22 +142,24 @@ def calculate_difference2(cause, effect, length):
 def calculate_difference3(cause, effect, length):
     cause_type = get_type_array(cause, length)
     effect_type = get_type_array(effect, length)
-    print count_type(cause_type)
-    print count_type(effect_type)
+    #print count_type(cause_type)
+    #print count_type(effect_type)
     effect_p_array = []
     cause_effect_p_array = []
     for i in range(length, len(effect) - 1):
-        mean, std = calculate_mean_and_std2(effect_type[i - length:i], length)
-        parameter_p = mean / 2.0
-        effect_p_array.append(get_b_p(2, effect_type[i], parameter_p))
-        target_array = mix_array2(effect_type[i - length:i], cause_type[i - length:i], effect_type[i])
+        #mean, std = calculate_mean_and_std2(effect_type[i-length:i], length)
+        #parameter_p = mean / 2.0
+        #effect_p_array.append(get_b_p(2, effect_type[i], parameter_p))
+        effect_p_array.append(snml_b(effect_type[0:i],effect_type[i]))
+        target_array = mix_array2(effect_type[0:i], cause_type[0:i], effect_type[i])
         # print target_array
-        mean2, std2 = calculate_mean_and_std2(target_array, length)
-        parameter_p2 = mean2 / 2.0
-        p2 = get_b_p(2, effect_type[i], parameter_p2)
-        cause_effect_p_array.append(p2)
-    effect_length = calculate_compress_length(effect_p_array)
-    cause_effect_length = calculate_compress_length(cause_effect_p_array)
+        #mean2, std2 = calculate_mean_and_std2(target_array, length)
+        #parameter_p2 = mean2 / 2.0
+        #p2 = get_b_p(2, effect_type[i], parameter_p2)
+        #cause_effect_p_array.append(p2)
+        cause_effect_p_array.append(snml_b(target_array,effect_type[i]))
+    effect_length = sum(effect_p_array)#calculate_compress_length(effect_p_array)
+    cause_effect_length = sum(cause_effect_p_array)#calculate_compress_length(cause_effect_p_array)
     return effect_length - cause_effect_length
 
 
@@ -197,10 +204,44 @@ def real_data_test(length):
         print
 
 
+def log(x):
+    if x==0:
+        return 0
+    return math.log(x,2)
+
+
+def snml_b(data,next_value):
+    p = 0
+    log_f_0=0
+    log_f_1 = 0
+    log_f_2 = 0
+    data_sum = sum(data)
+    double_length = 2*len(data)
+    try:
+        log_f_0 = data_sum*log(data_sum)+(double_length-data_sum+2)*log(double_length-data_sum+2)
+        #f_0 = math.pow(data_sum,data_sum)*math.pow(double_length-data_sum+2,double_length-data_sum+2)
+        log_f_1 = log(2)+(data_sum+1)*log(data_sum+1)+(double_length-data_sum+1)*log(double_length-data_sum+1)
+        #f_1 = 2*math.pow(data_sum+1,data_sum+1)*math.pow(double_length-data_sum+1,double_length-data_sum+1)
+        log_f_2 = (data_sum+2)*log(data_sum+2)+(double_length-data_sum)*log(double_length-data_sum)
+        #f_2 = math.pow(data_sum+2,data_sum+2)*math.pow(double_length-data_sum,double_length-data_sum)
+        max_value = max([log_f_0,log_f_1,log_f_2])
+        lg_denom = max_value + math.log(math.pow(2,log_f_0-max_value)+math.pow(2,log_f_1-max_value)+math.pow(2,log_f_2-max_value))
+    except ValueError:
+        print data_sum
+        print double_length
+    if next_value==0:
+        lg_numer = log_f_0
+    elif next_value==1:
+        lg_numer = log_f_1
+    elif next_value==2:
+        lg_numer = log_f_2
+    return lg_denom-lg_numer
+
+
 def test_simulation(length):
     counter = 0
     for i in range(0, 100):
-        cause, effect = generate_continue_data(200, random.randint(1, 5))  # random.randint(1,5)
+        cause, effect = generate_continue_data(200,3)  # random.randint(1,5)
         cause = normalize(cause)
         cause = zero_change(cause)
         effect = normalize(effect)

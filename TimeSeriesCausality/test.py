@@ -2,12 +2,12 @@
 import random
 import math
 from Util import generate_continue_data, get_type_array,normalize,zero_change
-from Util2 import calculate_difference
+from Util2 import calculate_difference,calculate_difference3
 from statsmodels.tsa.stattools import grangercausalitytests
 
 
 # test causal continue data
-def test_data():
+def test_data(length):
     txtName = "causal_continue_noise_0.1_normal_sample_100_length_100.txt"
     f = file(txtName, "a+")
     counter11 = 0
@@ -25,8 +25,8 @@ def test_data():
         write_str = ""
         p = random.randint(1, 5)
         #effect, test1 = generate_continue_data(100, p)
-        cause, effect = generate_continue_data(100, p)
-        #effect, test2 = generate_continue_data(100, p)
+        cause, effect = generate_continue_data(200, 3)
+        #effect, test2 = generate_continue_data(200, 3)
         cause = normalize(cause)
         cause = zero_change(cause)
         effect = normalize(effect)
@@ -77,8 +77,8 @@ def test_data():
         print effect
         print cause
         print effect
-        cause2 = get_type_array(cause)
-        effect2 = get_type_array(effect)
+        cause2 = get_type_array(cause,length)
+        effect2 = get_type_array(effect,length)
         print "01 data, Granger causality test"
         print "cause->effect"
         p_value_cause_to_effect3 = []
@@ -115,8 +115,8 @@ def test_data():
         write_str = write_str + " " + str(min(p_value_cause_to_effect3)) + " " + str(min(p_value_effect_to_cause4))
         print
 
-        delta_ce = calculate_difference(cause, effect)
-        delta_ec = calculate_difference(effect, cause)
+        delta_ce = calculate_difference3(cause, effect,length)
+        delta_ec = calculate_difference3(effect, cause,length)
         print 'cause' + ' -> ' + 'effect' + ':' + str(delta_ce)
         print 'effect' + ' -> ' + 'cause' + ':' + str(delta_ec)
         if delta_ce > delta_ec and delta_ce - delta_ec >= -math.log(0.05, 2):
@@ -156,4 +156,4 @@ def test_data():
     print "no cause and effect:" + str(counter_undecided)
 
 
-test_data()
+test_data(6)

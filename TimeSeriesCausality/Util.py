@@ -43,8 +43,8 @@ def symmetricalKL(P, Q):
 
 # 读取的是近十年加拿大的经济各个指标数据
 def get_data():
-    title_name = ['GDP_monthly', 'house_price_index_monthly', 'unemployment_rate', 'CPI_core_monthly', 'CPI_monthly',
-                  'trade_monthly', 'sell', 'new house', 'brent', 'WTI']
+    title_name = ['GDP', 'CPI', 'CCPI', 'RS', 'HS',
+                  'NHPI', 'CA', 'D.UE', 'D.Brent', 'D.WTI']
     title = []
     with open("data/gdpLongReal.dat", "r") as reader:
         for i in range(len(title_name)):
@@ -57,7 +57,7 @@ def get_data():
 # get Canada economy data
 def get_economy_data():
     workbook = xlrd.open_workbook("data/data.xlsx")
-    table = workbook.sheets()[3]
+    table = workbook.sheets()[1]
     result = {}
 
     for i in range(1, 11):
@@ -137,18 +137,18 @@ def decide_type3(value,sigma):
 
 
 
-def get_type_array(a):
+def get_type_array(a,length):
     result = []
-    mean, sigma = calculate_mean_and_std2(a)
+    mean, sigma= calculate_mean_and_std2(a,length)
     for element in a:
         result.append(decide_type3(element, sigma))
         #result.append(decide_type2(element,sigma))
     return result
 
 
-def get_type_array2(a):
+def get_type_array2(a,length):
     result = []
-    mean, sigma = calculate_mean_and_std2(a)
+    mean, sigma = calculate_mean_and_std2(a,length)
     for element in a:
         result.append(decide_type2(element,sigma))
     return result
@@ -180,7 +180,7 @@ def calculate_mean_and_std(data):
     return mean, std
 
 
-def calculate_mean_and_std2(data):
+def calculate_mean_and_std2(data,length):
     """
     length = len(data)
     use_array = data[length - 10:]
@@ -198,9 +198,31 @@ def calculate_mean_and_std2(data):
     std = std / 4.0
     std = math.pow(std, 0.5)
     """
-    length = len(data)
-    use_array = data
-    return np.mean(use_array), np.std(use_array, ddof=1)
+    #use_array = data[len(data)-length:len(data)]
+    #use_array = data
+    #print len(use_array)
+    return np.mean(data), np.std(data, ddof=0)
+
+
+weights = [1,0.969571,0.938187,0.905785	,0.872299,0.837652,0.801762	,0.764536,0.725869,0.685648,0.643741,0.6]
+coe = 0.8
+
+def calculate_mean_and_std_with_weight(data):
+    data_length = len(data)
+    coe_sum = 0
+    sum = 0
+    std = 0
+    sigma_sum = 0
+    for i in range(0,data_length):
+        tmp_coe = math.pow(coe,(i+1)%12)*weights[(i+1)%12]
+        sum = sum + tmp_coe*data[data_length-i-1]
+        coe_sum = tmp_coe + coe_sum
+    average = sum/coe_sum
+    for i in range(0,data_length):
+        tmp_coe = math.pow(coe,(i+1)%12)*weights[(i+1)%12]
+        sigma_sum = sigma_sum + tmp_coe*math.pow(data[data_length-i-1]-average,2)
+    std = math.pow(sigma_sum,0.5)
+    return average,std
 
 
 def mix_array(data1, type_array1, data2, type_array2, next_value, next_type):
@@ -259,8 +281,8 @@ def decide_p(data, next_type):
 """
 
 
-def decide_p(data, next_type):
-    mean, std = calculate_mean_and_std2(data)
+def decide_p(data, next_type,length):
+    mean, std = calculate_mean_and_std2(data,length)
     p = 0
     # normal = scipy.stats.norm(mean,std)
     # print (-0.5 * std - mean) / std
@@ -277,8 +299,8 @@ def decide_p(data, next_type):
     return p
 
 
-def decide_p2(data, next_type):
-    mean, std = calculate_mean_and_std2(data)
+def decide_p2(data, next_type,length):
+    mean, std = calculate_mean_and_std2(data,length)
     p = 0
     # normal = scipy.stats.norm(mean,std)
     # print (-0.5 * std - mean) / std

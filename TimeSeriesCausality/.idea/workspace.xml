@@ -10,16 +10,16 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/TimeSeriesCausality$Util.coverage" NAME="Util Coverage Results" MODIFIED="1547451503043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/TimeSeriesCausality$test.coverage" NAME="test Coverage Results" MODIFIED="1547475350855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/TimeSeriesCausality$Util2.coverage" NAME="Util2 Coverage Results" MODIFIED="1547475556712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TimeSeriesCausality$test.coverage" NAME="test Coverage Results" MODIFIED="1547635832521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TimeSeriesCausality$Util2.coverage" NAME="Util2 Coverage Results" MODIFIED="1547639777719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="131" column="23" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="23" />
+            <state relative-caret-position="100">
+              <caret line="319" column="45" lean-forward="true" selection-start-line="319" selection-start-column="45" selection-end-line="319" selection-end-column="45" />
               <folding>
                 <element signature="e#17#50#0" expanded="true" />
               </folding>
@@ -30,17 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="121">
               <caret line="1134" selection-start-line="1134" selection-end-line="1134" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fastncdf_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -54,16 +45,30 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Util2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="61" column="40" lean-forward="true" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="40" />
+            <state relative-caret-position="214">
+              <caret line="154" column="33" selection-start-line="154" selection-start-column="33" selection-end-line="154" selection-end-column="33" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python27/Lib/site-packages/numpy/core/fromnumeric.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3">
+              <caret line="2336" column="4" selection-start-line="2336" selection-start-column="4" selection-end-line="2336" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/causal_continue_noise_0.1_normal_sample_100_length_100.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -81,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-192">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+            <state relative-caret-position="-186">
+              <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -90,20 +95,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-534">
-              <caret line="117" column="31" selection-start-line="117" selection-start-column="31" selection-end-line="117" selection-end-column="31" />
+            <state relative-caret-position="-2244">
+              <caret line="27" column="54" lean-forward="true" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
               <folding>
-                <element signature="e#16#29#0" expanded="true" />
+                <element signature="e#17#30#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://C:/Python27/Lib/site-packages/scipy/stats/_distn_infrastructure.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13927">
-              <caret line="766" selection-start-line="766" selection-end-line="766" />
             </state>
           </provider>
         </entry>
@@ -144,6 +140,11 @@
       <find>cause-&gt;effect</find>
       <find>cause -&gt; effect</find>
       <find>calculate_d</find>
+      <find>dec</find>
+      <find>10</find>
+      <find>mix</find>
+      <find>tmp</find>
+      <find>calculate_mean_and_std2</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -156,22 +157,23 @@
         <option value="$PROJECT_DIR$/fastn_cdf.py" />
         <option value="$PROJECT_DIR$/simulate.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/Util.py" />
         <option value="$PROJECT_DIR$/Util2.py" />
+        <option value="$PROJECT_DIR$/Util.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
+    <option name="x" value="218" />
+    <option name="y" value="341" />
     <option name="width" value="1940" />
-    <option name="height" value="1050" />
+    <option name="height" value="965" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -188,7 +190,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -309,22 +310,23 @@
       <workItem from="1547169266681" duration="7323000" />
       <workItem from="1547256229061" duration="2875000" />
       <workItem from="1547375291750" duration="5708000" />
-      <workItem from="1547427726820" duration="24639000" />
+      <workItem from="1547427726820" duration="34729000" />
+      <workItem from="1547600461558" duration="23320000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84217000" />
+    <option name="totallyTimeSpent" value="117627000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.2533512" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.25670242" />
       <window_info id="Structure" order="1" sideWeight="0.5007072" side_tool="true" weight="0.22989276" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3903819" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46251768" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4115983" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -350,18 +352,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Util.py</url>
-          <line>356</line>
+          <line>378</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Util2.py</url>
-          <line>77</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/Util.py</url>
+          <line>344</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Util.py</url>
-          <line>322</line>
-          <option name="timeStamp" value="23" />
+          <url>file://$PROJECT_DIR$/Util2.py</url>
+          <line>155</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -384,16 +386,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="1134" selection-start-line="1134" selection-end-line="1134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/causal_continue_noise_0.1_normal_sample_100.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/causal_continue_noise_0.1_normal_sample_100.txt" />
     <entry file="file://$PROJECT_DIR$/fastncdf_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -408,6 +401,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/causal_continue_noise_0.1_normal_sample_100_length_100.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/gdpLongReal.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -415,20 +411,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulate.py">
+    <entry file="file://C:/Python27/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-192">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        <state relative-caret-position="3">
+          <caret line="2336" column="4" selection-start-line="2336" selection-start-column="4" selection-end-line="2336" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Util.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="131" column="23" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="23" />
-          <folding>
-            <element signature="e#17#50#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="121">
+          <caret line="1134" selection-start-line="1134" selection-end-line="1134" />
         </state>
       </provider>
     </entry>
@@ -442,22 +435,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/simulate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-186">
+          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-534">
-          <caret line="117" column="31" selection-start-line="117" selection-start-column="31" selection-end-line="117" selection-end-column="31" />
+        <state relative-caret-position="-2244">
+          <caret line="27" column="54" lean-forward="true" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
           <folding>
-            <element signature="e#16#29#0" expanded="true" />
+            <element signature="e#17#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Util2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="61" column="40" lean-forward="true" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="40" />
+        <state relative-caret-position="214">
+          <caret line="154" column="33" selection-start-line="154" selection-start-column="33" selection-end-line="154" selection-end-column="33" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="319" column="45" lean-forward="true" selection-start-line="319" selection-start-column="45" selection-end-line="319" selection-end-column="45" />
+          <folding>
+            <element signature="e#17#50#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -2,7 +2,7 @@
 import random
 import math
 from Util import generate_continue_data, get_type_array,normalize,zero_change
-from Util2 import calculate_difference,calculate_difference3
+from Util2 import calculate_difference,calculate_difference3,calculate_difference4
 from statsmodels.tsa.stattools import grangercausalitytests
 
 
@@ -25,7 +25,7 @@ def test_data(length):
         write_str = ""
         p = random.randint(1, 5)
         #effect, test1 = generate_continue_data(100, p)
-        cause, effect = generate_continue_data(200, 3)
+        cause, effect = generate_continue_data(1000, 3)
         #effect, test2 = generate_continue_data(200, 3)
         cause = normalize(cause)
         cause = zero_change(cause)

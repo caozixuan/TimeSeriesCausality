@@ -56,8 +56,8 @@ def get_data():
 
 # get Canada economy data
 def get_economy_data():
-    workbook = xlrd.open_workbook("data/data.xlsx")
-    table = workbook.sheets()[1]
+    workbook = xlrd.open_workbook("data/data2.xlsx")
+    table = workbook.sheets()[3]
     result = {}
 
     for i in range(1, 11):
@@ -68,6 +68,8 @@ def get_economy_data():
 
 def normalize(a):
     result = []
+    tmp1= np.max(a)
+    tmp2 =  np.min(a)
     for element in a:
         x = float(element - np.min(a)) / (np.max(a) - np.min(a))
         result.append(x)
@@ -124,12 +126,12 @@ def decide_type2(value,sigma):
         return 2
 
 
-def decide_type3(value,sigma):
-    if value < -0.68*sigma:
+def decide_type3(value,sigma,mean):
+    if value < mean-0.68*sigma:
         return 0
-    elif value >=-0.68*sigma and value <0.68*sigma:
+    elif value >=mean-0.68*sigma and value <mean+0.68*sigma:
         return 1
-    elif value >= 0.68*sigma:
+    elif value >= mean+0.68*sigma:
         return 2
     return 0
 
@@ -141,7 +143,7 @@ def get_type_array(a,length):
     result = []
     mean, sigma= calculate_mean_and_std2(a,length)
     for element in a:
-        result.append(decide_type3(element, sigma))
+        result.append(decide_type3(element, sigma,mean))
         #result.append(decide_type2(element,sigma))
     return result
 
@@ -201,20 +203,31 @@ def calculate_mean_and_std2(data,length):
     #use_array = data[len(data)-length:len(data)]
     #use_array = data
     #print len(use_array)
-    return np.mean(data), np.std(data, ddof=0)
+    return np.mean(data), np.std(data, ddof=1)
 
 
 weights = [1,0.969571,0.938187,0.905785	,0.872299,0.837652,0.801762	,0.764536,0.725869,0.685648,0.643741,0.6]
 coe = 0.8
 
+
+def get_wights(lower_coe):
+    weights = []
+    x = (math.pow(math.e,1)- math.pow(math.e,lower_coe))/11
+    for i in range(0,12):
+        weight = math.log(math.e-i*x,math.e)
+        weights.append(weight)
+    return weights
+
+
 def calculate_mean_and_std_with_weight(data):
+    weights = get_wights(0.7)
     data_length = len(data)
     coe_sum = 0
     sum = 0
     std = 0
     sigma_sum = 0
     for i in range(0,data_length):
-        tmp_coe = math.pow(coe,(i+1)%12)*weights[(i+1)%12]
+        tmp_coe = math.pow(coe,(i+1)/12)*weights[(i+1)%12]
         sum = sum + tmp_coe*data[data_length-i-1]
         coe_sum = tmp_coe + coe_sum
     average = sum/coe_sum

@@ -12,8 +12,8 @@ def generate_continue_data(length, shift):
         else:
             cause.append(cause[i - 1] + main[i])
     effect = forward_shift_continue_data(cause, shift)
-    for j in range(0, length):
-        effect[j] = effect[j] + noise[j]
+    #for j in range(0, length):
+    #    effect[j] = effect[j] + noise[j]
     return cause, effect
 
 

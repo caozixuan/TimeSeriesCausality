@@ -57,7 +57,7 @@ def conver_num(element):
 
 
 def read_stock_price():
-    f = open("data/stock_price3.txt")
+    f = open("data/stock_price.txt")
     line = f.readline()
     x_price = []
     y_price = []
@@ -74,6 +74,9 @@ def read_stock_price():
             y_price.append(conver_num(strings[1][0:len(strings[1])]))
         line = f.readline()
     f.close()
+    #for i in range(0,len(x_price)):
+    #    x_price[i]=math.log(x_price[i],2)
+    #    y_price[i] = math.log(y_price[i], 2)
     return x_price, y_price
 
 
@@ -152,8 +155,8 @@ def river_test():
     effect = worms
     cause = zero_change(cause)
     effect = zero_change(effect)
-    sp2wo = calculate_difference3(cause, effect, 100)
-    wo2sp = calculate_difference3(effect, cause, 100)
+    sp2wo = calculate_difference3(cause, effect, 10)
+    wo2sp = calculate_difference3(effect, cause, 10)
     print 'sp' + ' -> ' + 'wo' + ':' + str(sp2wo)
     print 'wo' + ' -> ' + 'sp' + ':' + str(wo2sp)
     print
@@ -161,8 +164,8 @@ def river_test():
     effect = mainz
     cause = zero_change(cause)
     effect = zero_change(effect)
-    sp2mz = calculate_difference3(cause, effect, 100)
-    mz2sp = calculate_difference3(effect, cause, 100)
+    sp2mz = calculate_difference3(cause, effect, 10)
+    mz2sp = calculate_difference3(effect, cause, 10)
     print 'sp' + ' -> ' + 'mz' + ':' + str(sp2mz)
     print 'mz' + ' -> ' + 'sp' + ':' + str(mz2sp)
     print
@@ -170,8 +173,8 @@ def river_test():
     effect = worms
     cause = zero_change(cause)
     effect = zero_change(effect)
-    ma2wo = calculate_difference3(cause, effect, 100)
-    wo2ma = calculate_difference3(effect, cause, 100)
+    ma2wo = calculate_difference3(cause, effect, 10)
+    wo2ma = calculate_difference3(effect, cause, 10)
     print 'ma' + ' -> ' + 'wo' + ':' + str(ma2wo)
     print 'wo' + ' -> ' + 'ma' + ':' + str(wo2ma)
     print
@@ -179,8 +182,8 @@ def river_test():
     effect = mainz
     cause = zero_change(cause)
     effect = zero_change(effect)
-    ma2mz= calculate_difference3(cause, effect, 100)
-    mz2ma = calculate_difference3(effect, cause, 100)
+    ma2mz= calculate_difference3(cause, effect, 10)
+    mz2ma = calculate_difference3(effect, cause, 10)
     print 'ma' + ' -> ' + 'mz' + ':' + str(ma2mz)
     print 'mz' + ' -> ' + 'ma' + ':' + str(mz2ma)
     print
@@ -188,8 +191,8 @@ def river_test():
     effect = mainz
     cause = zero_change(cause)
     effect = zero_change(effect)
-    wo2mz = calculate_difference3(cause, effect, 100)
-    mz2wo = calculate_difference3(effect, cause, 100)
+    wo2mz = calculate_difference3(cause, effect, 10)
+    mz2wo = calculate_difference3(effect, cause, 10)
     print 'wo' + ' -> ' + 'mz' + ':' + str(wo2mz)
     print 'mz' + ' -> ' + 'wo' + ':' + str(mz2wo)
     print
@@ -212,12 +215,24 @@ def ozone_test():
     ozone, temp = read_ozone()
     cause = temp
     effect = ozone
-    cause = zero_change(cause)
-    effect = zero_change(effect)
-    cause2effect = calculate_difference3(cause, effect, 5)
-    effect2cause = calculate_difference3(effect, cause, 5)
-    print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
-    print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+    #cause = zero_change(cause)
+    #effect = zero_change(effect)
+    for i in range(5,6):
+        cause2effect = calculate_difference3(cause, effect, i)
+        effect2cause = calculate_difference3(effect, cause, i)
+        print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
+        print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+        p = math.pow(2, -(cause2effect - effect2cause))
+        print p
+from statsmodels.tsa.stattools import grangercausalitytests
+
+
+def ozone_granger_test():
+    x, y = read_stock_price()
+    cause = x
+    effect = y
+    ce1 = grangercausalitytests([[effect[i], cause[i]] for i in range(0, len(cause))], 5)
+    ce2 = grangercausalitytests([[cause[i], effect[i]] for i in range(0, len(cause))], 5)
 
 
 def stock_test():
@@ -226,10 +241,14 @@ def stock_test():
     effect = map(float,y)
     #cause = zero_change(cause)
     #effect = zero_change(effect)
-    cause2effect = calculate_difference3(cause, effect, 10)
-    effect2cause = calculate_difference3(effect, cause, 10)
-    print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
-    print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+    for i in range(3,5):
+        cause2effect = calculate_difference3(cause, effect, i)
+        effect2cause = calculate_difference3(effect, cause, i)
+        print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
+        print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+        p = math.pow(2, -(cause2effect - effect2cause))
+        print p
+
 
 def test_daily_temperature():
     index,temp = read_daily_temperature()
@@ -276,5 +295,32 @@ def test_snow():
     print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
 
 
-stock_test()
+def no_causality_test():
+    x, y = read_stock_price()
+    a,b = read_ozone()
+    cause = x[0:300]
+    effect = a[0:300]
+    ce1 = grangercausalitytests([[effect[i], cause[i]] for i in range(0, len(cause))], 5)
+    ce2 = grangercausalitytests([[cause[i], effect[i]] for i in range(0, len(cause))], 5)
 
+
+def causality_test():
+    x, y = read_stock_price()
+    a, b = read_ozone()
+    cause = y[0:300]
+    effect = b[0:300]
+    cause = normalize(cause)
+    cause = zero_change(cause)
+    effect = normalize(effect)
+    effect = zero_change(effect)
+    cause2effect = calculate_difference3(cause, effect, 10)
+    effect2cause = calculate_difference3(effect, cause, 10)
+    print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
+    print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+    p = math.pow(2, -(cause2effect - effect2cause))
+    print p
+
+#river_test()
+#ozone_granger_test()
+#stock_test()
+causality_test()

@@ -219,8 +219,17 @@ def get_wights(lower_coe):
     return weights
 
 
+def get_all_weights(length,lower_coe):
+    weights = get_wights(lower_coe)
+    result = []
+    for i in range(0,length):
+        c =  math.pow(coe,(i+1)/12)*weights[(i+1)%12]
+        result.append(c)
+    return result
+
+
 def calculate_mean_and_std_with_weight(data):
-    weights = get_wights(0.7)
+    weights = get_wights(0.7)#0.7
     data_length = len(data)
     coe_sum = 0
     sum = 0
@@ -235,7 +244,7 @@ def calculate_mean_and_std_with_weight(data):
         tmp_coe = math.pow(coe,(i+1)%12)*weights[(i+1)%12]
         sigma_sum = sigma_sum + tmp_coe*math.pow(data[data_length-i-1]-average,2)
     std = math.pow(sigma_sum,0.5)
-    return average,std
+    return average,coe_sum
 
 
 def mix_array(data1, type_array1, data2, type_array2, next_value, next_type):

@@ -4,11 +4,11 @@ import math
 from Util import generate_continue_data, get_type_array,normalize,zero_change
 from Util2 import calculate_difference,calculate_difference3,calculate_difference4
 from statsmodels.tsa.stattools import grangercausalitytests
-
+from Util2 import bh_procedure
 
 # test causal continue data
 def test_data(length):
-    txtName = "causal_continue_noise_0.1_normal_sample_100_length_100.txt"
+    txtName = "causal_continue_noise_0.0_normal_sample_1000_length_400.txt"
     f = file(txtName, "a+")
     counter11 = 0
     counter10 = 0
@@ -21,12 +21,13 @@ def test_data(length):
     counter_undecided = 0
     counter_true = 0
     counter_false = 0
-    for i in range(0, 100):
+    p_array = []
+    for i in range(0, 1000):
         write_str = ""
-        p = random.randint(1, 5)
+        p = random.randint(1, 3)
         #effect, test1 = generate_continue_data(100, p)
-        cause, effect = generate_continue_data(1000, 3)
-        #effect, test2 = generate_continue_data(200, 3)
+        cause, test1 = generate_continue_data(200, p)
+        effect, test2 = generate_continue_data(200, 3)
         cause = normalize(cause)
         cause = zero_change(cause)
         effect = normalize(effect)
@@ -35,9 +36,10 @@ def test_data(length):
             write_str = write_str + " " + str(cause[ii])
         for jj in range(0, len(effect)):
             write_str = write_str + " " + str(effect[jj])
-        print "cause:" + str(cause)
-        print "effect:" + str(effect)
+        #print "cause:" + str(cause)
+        #print "effect:" + str(effect)
         # effect, test2 = ge_normal_data(p,200)
+
         print "Continuous data, Granger causality test"
         print "cause->effect"
         p_value_cause_to_effect1 = []
@@ -98,19 +100,19 @@ def test_data(length):
                 flag4 = True
         if flag3 and flag4:
             print "01 data，Granger two-way cause and effect"
-            write_str = write_str + " " + "01数据，格兰杰双向因果"
+            write_str = write_str + " " + "离散数据，格兰杰双向因果"
             counter11_01 += 1
         elif flag3 and not flag4:
             print "01 data，Granger correct cause and effect"
-            write_str = write_str + " " + "01数据，格兰杰正确因果"
+            write_str = write_str + " " + "离散数据，格兰杰正确因果"
             counter10_01 += 1
         elif not flag3 and flag4:
             print "01 data，Granger wrong cause and effect"
-            write_str = write_str + " " + "01数据，格兰杰错误因果"
+            write_str = write_str + " " + "离散数据，格兰杰错误因果"
             counter01_01 += 1
         elif not flag3 and not flag4:
             print "01 data，Granger no cause and effect"
-            write_str = write_str + " " + "01数据，格兰杰没有因果"
+            write_str = write_str + " " + "离散数据，格兰杰没有因果"
             counter00_01 += 1
         write_str = write_str + " " + str(min(p_value_cause_to_effect3)) + " " + str(min(p_value_effect_to_cause4))
         print
@@ -132,6 +134,8 @@ def test_data(length):
             write_str = write_str + " " + "CUTE，未决定"
             counter_undecided += 1
         write_str = write_str + " " + str(pow(2, -abs(delta_ce - delta_ec)))
+        p = math.pow(2, -(delta_ce - delta_ec))
+        p_array.append(p)
         f.write(write_str)
         f.write("\n")
         print
@@ -144,7 +148,7 @@ def test_data(length):
     print "错误因果:" + str(counter01)
     print "没有因果" + str(counter00)
     print "-----------------"
-    print "01数据，格兰杰因果关系检验："
+    print "离散数据，格兰杰因果关系检验："
     print "双向因果:" + str(counter11_01)
     print "正确因果:" + str(counter10_01)
     print "错误因果:" + str(counter01_01)
@@ -154,6 +158,7 @@ def test_data(length):
     print "correct cause and effect:" + str(counter_true)
     print "wrong cause and effect:" + str(counter_false)
     print "no cause and effect:" + str(counter_undecided)
+    print "BH:"+str(bh_procedure(p_array,0.05)/1000.0)
 
 
 test_data(6)

@@ -136,6 +136,15 @@ def decide_type3(value,sigma,mean):
     return 0
 
 
+def decide_type4(value,low,high):
+    if value<low:
+        return 0
+    elif value>high:
+        return 2
+    else:
+        return 1
+
+
 
 
 
@@ -155,6 +164,29 @@ def get_type_array2(a,length):
         result.append(decide_type2(element,sigma))
     return result
 
+
+def get_type_array3(a,length):
+    result = []
+    tmp_array = list(a)
+    tmp_array.sort()
+    low = tmp_array[int(0.25*len(a))]
+    high = tmp_array[int(0.75 * len(a))]
+    for element in a:
+        result.append(decide_type4(element,low,high))
+        #result.append(decide_type2(element,sigma))
+    return result
+
+
+def get_type_array4(a,length):
+    result = []
+    for element in a:
+        if element<0:
+            result.append(0)
+        elif element==0:
+            result.append(1)
+        else:
+            result.append(2)
+    return result
 
 def count_type(type_array):
     count_type_array = [0, 0, 0, 0, 0]

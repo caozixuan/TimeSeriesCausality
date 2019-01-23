@@ -5,9 +5,9 @@ import random
 from collections import defaultdict
 import numpy as np
 from Util import calculate_mean_and_std2, decide_type, get_type_array, get_data, get_economy_data, map_data, normalize, \
-    zero_change, calculate_compress_length, count_type, calculate_mean_and_std_with_weight, get_wights,get_all_weights
+    zero_change, calculate_compress_length, count_type, calculate_mean_and_std_with_weight, get_wights,get_all_weights,get_type_array3,get_type_array2,get_type_array4
 from simulate import generate_continue_data, generate_continue_data2
-from snml import bernoulli, cbernoulli
+from snml import bernoulli, cbernoulli,bernoulli2,cbernoulli2
 
 
 def CnkD(n, k):
@@ -326,26 +326,26 @@ def calculate_difference2(cause, effect, length):
 
 
 def calculate_difference3(cause, effect, length):
-    cause_type = get_type_array(cause, length)
-    effect_type = get_type_array(effect, length)
+    cause_type = get_type_array3(cause, length)
+    effect_type = get_type_array3(effect, length)
     #print count_type(cause_type)
     #print count_type(effect_type)
     effect_p_array = []
     cause_effect_p_array = []
     for i in range(length, len(effect) - 1):
-        # mean, std = calculate_mean_and_std2(effect_type[i-length:i], length)
-        # parameter_p = mean / 2.0
-        # effect_p_array.append(get_b_p(2, effect_type[i], parameter_p))
+        #mean, std = calculate_mean_and_std2(effect_type[i-length:i], length)
+        #parameter_p = mean / 2.0
+        #effect_p_array.append(get_b_p(2, effect_type[i], parameter_p))
         effect_p_array.append(snml_b(effect_type[i - length:i], effect_type[i]))
-        target_array = mix_array3(effect_type[i - length:i], cause_type[i - length:i], effect_type[i],effect_type[i - 2 * length:i - length])  #
-        # print target_array
-        # mean2, std2 = calculate_mean_and_std2(target_array, length)
-        # parameter_p2 = mean2 / 2.0
-        # p2 = get_b_p(2, effect_type[i], parameter_p2)
-        # cause_effect_p_array.append(p2)
+        target_array = mix_array3(effect_type[i - length:i], cause_type[i - length:i], effect_type[i],[])  #
+        #print target_array
+        #mean2, std2 = calculate_mean_and_std2(target_array, length)
+        #parameter_p2 = mean2 / 2.0
+        #p2 = get_b_p(2, effect_type[i], parameter_p2)
+        #cause_effect_p_array.append(p2)
         cause_effect_p_array.append(snml_b(target_array, effect_type[i]))
-    effect_length = sum(effect_p_array)  # calculate_compress_length(effect_p_array)
-    cause_effect_length = sum(cause_effect_p_array)  # calculate_compress_length(cause_effect_p_array)
+    effect_length = sum(effect_p_array)  #calculate_compress_length(effect_p_array)#
+    cause_effect_length = sum(cause_effect_p_array)  #calculate_compress_length(cause_effect_p_array)#
     return effect_length - cause_effect_length
 
 
@@ -546,7 +546,6 @@ def granger_test():
 def bh_procedure(p_array, alpha):
     p_array.sort()
     counter = 0
-    print p_array
     for k in range(1, len(p_array) + 1):
         if p_array[k - 1] <= float(k) / float((len(p_array))) * alpha:
             counter = k
@@ -609,26 +608,27 @@ def change_to_zero_one(data):
     return result
 
 
-def cute_test():
+def cute_test(length):
     p_array = []
     counter=0
     for i in range(0, 1000):
-        cause, effect = generate_continue_data(400, random.randint(1,3))  # random.randint(1,5)
+        cause, effect = generate_continue_data(200, random.randint(1,3))  # random.randint(1,5)
         #effect, test2 = generate_continue_data(200, 3)  # random.randint(1,5)
         cause = change_to_zero_one(cause)
         effect = change_to_zero_one(effect)
-        cause2effect = bernoulli(effect) - cbernoulli(effect, cause)
-        effect2cause = bernoulli(cause) - cbernoulli(cause, effect)
-        print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
-        print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+        cause2effect = bernoulli2(effect,length) - cbernoulli2(effect, cause,length)
+        effect2cause = bernoulli2(cause,length) - cbernoulli2(cause, effect,length)
+        #print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
+        #print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
         p = math.pow(2, -(cause2effect - effect2cause))
         p_array.append(p)
         if cause2effect > effect2cause:
             counter += 1
     print
     print counter
-    print bh_procedure(p_array, 0.1)
+    #print bh_procedure(p_array, 0.05)
     return counter / 100.0
 
 
-#cute_test()
+#cute_test(6)
+

@@ -50,6 +50,21 @@ def bernoulli(X):
     return res
 
 
+def count_1(X):
+    counter = 0
+    for x in X:
+        if x==1:
+            counter+=1
+    return counter
+
+
+def bernoulli2(X,length):
+    res = 0.0
+    for i in range(length,len(X)):
+        res+=regret(count_1(X[i-length:i]),length,X[i])
+    return res
+
+
 def cbernoulli(X, Y):
     res = 0.0
     t_x, t_y, t_ones = 0, 0, 0
@@ -69,6 +84,19 @@ def cbernoulli(X, Y):
         t_y += int(y == 1)
         t_max += int(x == 1) or int(y == 1)
     # assert res <= bernoulli(X)
+    return res
+
+
+def cbernoulli2(X, Y,length):
+    res = 0.0
+    for i in range(length,len(X)):
+        t_x = count_1(X[i-length:i])
+        t_y = count_1(Y[i-length:i])
+        if X[i]==0:
+            t1 = min([t_x,t_y])
+        else:
+            t1 = max([t_x,t_y])
+        res += regret(t1, length, X[i])
     return res
 
 

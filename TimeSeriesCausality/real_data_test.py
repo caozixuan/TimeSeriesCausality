@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 from collections import OrderedDict
 import csv
-from Util2 import calculate_difference3, calculate_difference4,change_to_zero_one
+from Util2 import calculate_difference3, calculate_difference4,change_to_zero_one,change_to_zero_one2
 from Util import zero_change,normalize
 import numpy as np
 import math
@@ -35,19 +35,19 @@ def collect_data():
 
 
 def read_hydraulic_pressure(name):
-    worksheet = xlrd.open_workbook('data/2-20.xlsx')
+    worksheet = xlrd.open_workbook('data/2.5.xlsx')
     #sheet_names = worksheet.sheet_names()
     sheet = worksheet.sheet_by_name(name)
-    time = sheet.col_values(0)[1:10000]
-    control = sheet.col_values(1)[1:10000]
-    valve_position = sheet.col_values(2)[1:10000]
-    system_pressure = sheet.col_values(3)[1:10000]
-    a_pressure = sheet.col_values(4)[1:10000]
-    b_pressure = sheet.col_values(5)[1:10000]
-    t_pressure = sheet.col_values(6)[1:10000]
-    flow = sheet.col_values(7)[1:2000]
-    valve_pressure = sheet.col_values(8)[1:10000]
-    load = sheet.col_values(9)[1:10000]
+    time = sheet.col_values(0)[1:-1]
+    control = sheet.col_values(1)[1:-1]
+    valve_position = sheet.col_values(2)[1:-1]
+    system_pressure = sheet.col_values(3)[1:-1]
+    a_pressure = sheet.col_values(4)[1:-1]
+    b_pressure = sheet.col_values(5)[1:-1]
+    t_pressure = sheet.col_values(6)[1:-1]
+    flow = sheet.col_values(7)[1:-1]
+    valve_pressure = sheet.col_values(8)[1:-1]
+    load = sheet.col_values(9)[1:-1]
     return time,control,valve_position,system_pressure,a_pressure,b_pressure,t_pressure,flow,valve_pressure,load
 
 
@@ -60,7 +60,7 @@ def read_cause_effect(file_name):
 
 
 def read_long_data(sub_length):
-    cause1,effect1 = read_cause_effect('data/subsample.xlsx')
+    cause1,effect1 = read_cause_effect('data/2.5.xlsx')
     #cause2, effect2 = read_cause_effect('data/5.0.xlsx')
     #cause3, effect3 = read_cause_effect('data/7.5.xlsx')
     #cause4, effect4 = read_cause_effect('data/10.xlsx')
@@ -217,7 +217,7 @@ def read_solar():
 
 
 def read_ozone():
-    data = np.loadtxt("data/ozone3.txt", delimiter="	")
+    data = np.loadtxt("data/ozone2.txt", delimiter="	")
     ozone = data[:, 0]
     temp = data[:, 1]
     return ozone, temp
@@ -335,9 +335,9 @@ def ozone_test():
     ozone, temp = read_ozone()
     cause = temp
     effect = ozone
-    #cause = zero_change(cause)
-    #effect = zero_change(effect)
-    for i in range(5,6):
+    cause = zero_change(cause)
+    effect = zero_change(effect)
+    for i in range(4,10):
         cause2effect = calculate_difference3(cause, effect, i)
         effect2cause = calculate_difference3(effect, cause, i)
         print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
@@ -460,34 +460,38 @@ def causality_test():
 def test_h():
     counter=0
     for i in range(1,2):
-        time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure('Sheet'+str(i))
-        cause = control
-        effect = valve_position
+        #time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure('Sheet'+str(i))
+        #cause = control
+        #effect = flow
 
-        #cause,effect = read_long_data(200)
+        cause,effect = read_long_data(200)
         #cause = normalize(cause)
-        cause = zero_change(cause)
+
+        #cause = zero_change(cause)
         #effect = normalize(effect)
-        effect = zero_change(effect)
+        #effect = zero_change(effect)
         cause2effect = calculate_difference3(cause, effect, 10)
         effect2cause = calculate_difference3(effect, cause, 10)
         print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
         print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
-        p = math.pow(2, -(cause2effect - effect2cause))
-        if p<0.05:
-            counter+=1
-        print p
+        #p = math.pow(2, -(cause2effect - effect2cause))
+        #if p<0.05:
+        #    counter+=1
+        #print p
+        plt.plot(cause)
+        plt.plot(effect)
+        plt.show()
     #print counter
 
 
 def test_granger_h():
     counter = 0
     for i in range(1, 2):
-        time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure(
-            'Sheet' + str(i))
-        cause = b_pressure
-        effect = valve_pressure
-        #cause, effect = read_long_data(200)
+        #time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure(
+        #    'Sheet' + str(i))
+        #cause = b_pressure
+        #effect = valve_pressure
+        cause, effect = read_long_data(200)
         p1 = granger(cause, effect, -1)
         p2 = granger(effect, cause, -1)
         print p1
@@ -500,27 +504,34 @@ def test_granger_h():
 def test_sin():
     input, output1, output2, output3 = read_sin_data()
 
-    noise1 = np.random.normal(0, 0.1, 0)
-    noise2 = np.random.normal(0, 0.1, 0)
-    cause = list(input[0:112])
-    # cause.extend(noise1)
-    cause.extend(list(input[112:-1]))
-    effect = list(output1[0:112])
-    # effect.extend(noise2)
-    effect.extend(list(output1[112:-1]))
+    noise1 = np.random.normal(0, 0.1, 100)
+    noise2 = np.random.normal(0, 0.1, 100)
+    cause = input[0:113]
+    cause.extend(noise1)
+    cause.extend(input[113:-1])
+    effect = output2[0:113]
+    effect.extend(noise2)
+    effect.extend(output2[113:-1])
 
-    for i in range(0,len(effect)):
-        effect[i] = effect[i]+np.random.normal(0, 0.1, 1)[0]
+    #for i in range(0,len(effect)):
+        #effect[i] = effect[i]+np.random.normal(0, 0.3, 1)[0]
 
 
     #cause = input
     #effect = output3
-    cause = normalize(cause)
-    cause = zero_change(cause)
-    effect = normalize(effect)
-    effect = zero_change(effect)
-    cause2effect = calculate_difference3(cause, effect, 10)
-    effect2cause = calculate_difference3(effect, cause, 10)
+
+    #cause = normalize(cause)
+    #cause = zero_change(cause)
+    #effect = normalize(effect)
+    #effect = zero_change(effect)
+    #cause2effect = calculate_difference3(cause, effect, 10)
+    #effect2cause = calculate_difference3(effect, cause, 10)
+
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    cause2effect = bernoulli(effect) - cbernoulli(effect, cause)
+    effect2cause = bernoulli(cause) - cbernoulli(cause, effect)
+
     print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
     print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
     p = math.pow(2, -(cause2effect - effect2cause))
@@ -542,42 +553,54 @@ def test_sin_granger():
 def test_CUTE(length):
     #time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure(
     #    'Sheet1')
-    #input, output1, output2, output3 = read_sin_data()
+    input, output1, output2, output3 = read_sin_data()
     #cause = control
     #cause.extend(noise1)
     #effect = valve_position
-    #for i in range(0,len(effect)):
-        #effect[i] = effect[i]+np.random.normal(0, 0.1, 1)[0]
+
     #cause, effect = read_long_data(100)
     #plt.plot(cause)
     #plt.plot(effect)
-    ozone,temp = read_ozone()
-    cause = temp
-    effect = ozone
-    cause = change_to_zero_one(cause)
-    effect = change_to_zero_one(effect)
-    #cause2effect = bernoulli(effect) - cbernoulli(effect, cause)
-    #effect2cause = bernoulli(cause) - cbernoulli(cause, effect)
-    cause2effect = bernoulli2(effect,length) - cbernoulli2(effect, cause,length)
-    effect2cause = bernoulli2(cause,length) - cbernoulli2(cause, effect,length)
+    #ozone,temp = read_ozone()
+    noise1 = np.random.normal(0, 0.3, 50)
+    noise2 = np.random.normal(0, 0.3, 50)
+    cause = input[0:113]
+    cause.extend(noise1)
+    cause.extend(input[113:-1])
+    effect = output1[0:113]
+    effect.extend(noise2)
+    effect.extend(output1[113:-1])
+
+    #for i in range(0,len(effect)):
+        #effect[i] = effect[i]+np.random.normal(0, 0.1, 1)[0]
+    cause,effect = read_long_data(200)
+    plt.plot(cause)
+    plt.plot(effect)
+    plt.show()
+    cause = change_to_zero_one2(cause)
+    effect = change_to_zero_one2(effect)
+    cause2effect = bernoulli(effect) - cbernoulli(effect, cause)
+    effect2cause = bernoulli(cause) - cbernoulli(cause, effect)
+    #cause2effect = bernoulli2(effect,length) - cbernoulli2(effect, cause,length)
+    #effect2cause = bernoulli2(cause,length) - cbernoulli2(cause, effect,length)
     print cause2effect
     print effect2cause
     p = math.pow(2, -(cause2effect - effect2cause))
     print p
-    plt.show()
+
 
 
 #river_test()
-ozone_granger_test()
+#ozone_granger_test()
 #stock_test()
 #causality_test()
 #ozone_test()
 #river_test2()
 #read_hydraulic_pressure()
 
-#test_h()
+test_h()
 #test_granger_h()
 
-#test_CUTE(5)
+test_CUTE(10)
 #test_sin()
 #test_sin_granger()

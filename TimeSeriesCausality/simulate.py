@@ -5,21 +5,21 @@ import math
 def generate_continue_data(length, shift):
     cause = []
     main = np.random.normal(0, 1, length)
-    noise = np.random.normal(0, 0.1, length)
+    noise = np.random.normal(0, 0.2, length)
     for i in range(0, length):
         if i == 0:
             cause.append(main[i])
         else:
             cause.append(cause[i - 1] + main[i])
     effect = forward_shift_continue_data(cause, shift)
-    #for j in range(0, length):
-        #effect[j] = effect[j] + noise[j]
-    #for x in range(0, len(effect)):
+    for j in range(0, length):
+        effect[j] = effect[j] + noise[j]
+    for x in range(0, len(effect)):
         #effect[x] = effect[x] + abs(min(effect)) + 0.1
         #effect[x] = math.log(effect[x], 2)
         #if effect[x]<0:
             #effect[x] = effect[x]/2
-        #effect[x] = math.tanh(effect[x])
+        effect[x] = math.tanh(effect[x])
     return cause, effect
 
 import random

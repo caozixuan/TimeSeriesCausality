@@ -328,8 +328,8 @@ def calculate_difference2(cause, effect, length):
 def calculate_difference3(cause, effect, length):
     cause_type = get_type_array3(cause, length)
     effect_type = get_type_array3(effect, length)
-    #print count_type(cause_type)
-    #print count_type(effect_type)
+    print count_type(cause_type)
+    print count_type(effect_type)
     effect_p_array = []
     cause_effect_p_array = []
     for i in range(length, len(effect) - 1):
@@ -607,15 +607,30 @@ def change_to_zero_one(data):
             result.append(0)
     return result
 
+def change_to_zero_one2(data):
+    result = []
+    tmp = list(data)
+    tmp.sort()
+    mid = tmp[int(0.5*len(data))]
+    for i in range(1,len(data)):
+        if data[i]>mid:
+            result.append(1)
+        else:
+            result.append(0)
+    return result
 
+from GMM import GMM
 def cute_test(length):
     p_array = []
     counter=0
     for i in range(0, 1000):
-        cause, effect = generate_continue_data(200, random.randint(1,3))  # random.randint(1,5)
+        #cause, effect = generate_continue_data(200, random.randint(1,3))  # random.randint(1,5)
+        cause = GMM(5,200)
+        effect = GMM(8,200)
         #effect, test2 = generate_continue_data(200, 3)  # random.randint(1,5)
         cause = change_to_zero_one(cause)
         effect = change_to_zero_one(effect)
+
         cause2effect = bernoulli2(effect,length) - cbernoulli2(effect, cause,length)
         effect2cause = bernoulli2(cause,length) - cbernoulli2(cause, effect,length)
         #print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
@@ -626,7 +641,7 @@ def cute_test(length):
             counter += 1
     print
     print counter
-    #print bh_procedure(p_array, 0.05)
+    print bh_procedure(p_array, 0.05)
     return counter / 100.0
 
 

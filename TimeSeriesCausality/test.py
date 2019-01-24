@@ -9,7 +9,18 @@ from Util2 import bh_procedure,change_to_zero_one
 from granger_test import granger
 from snml import bernoulli2,cbernoulli2
 import matplotlib.pyplot as plt
+from GMM import GMM
+import numpy as np
 # test causal continue data
+
+def normalize_data(data):
+    mean = np.mean(data)
+    std = np.std(data)
+    for i in range(0,len(data)):
+        data[i] = (data[i]-mean)/std
+    return data
+
+
 def test_data(length):
     #txtName = "causal_continue_noise_0.4_normal_sample_1000_length_200.txt"
     #f = file(txtName, "a+")
@@ -31,16 +42,27 @@ def test_data(length):
     counter_error_2=0
     p_array = []
     p_array2 = []
+    p_array3 = []
     for i in range(0, 1000):
         write_str = ""
         p = random.randint(1, 3)
         #effect, test1 = generate_continue_data(200, p)
-        cause, effect = generate_continue_data(450, p)
+
+        #cause, effect = generate_continue_data(250, p)
+
         #cause,effect = generate_continue_data_with_change_lag(200,6)
+        cause = GMM(5,200)
+        effect = GMM(8,200)
         cause_tmp = list(cause)
         effect_tmp = list(effect)
-        cause = normalize(cause)
-        effect = normalize(effect)
+
+        #cause = normalize(cause)
+        #effect = normalize(effect)
+
+
+        cause = normalize_data(cause)
+        effect = normalize_data(effect)
+
         cause = zero_change(cause)
         effect = zero_change(effect)
         for ii in range(0, len(cause)):
@@ -82,6 +104,7 @@ def test_data(length):
             print "Continuous data，Granger correct cause and effect"
             write_str = write_str + " " + "连续数据，格兰杰正确因果"
             counter10 += 1
+            p_array3.append(ce_p)
         elif not flag1 and flag2:
             print "Continuous data，Granger wrong cause and effect"
             write_str = write_str + " " + "连续数据，格兰杰错误因果"
@@ -189,6 +212,7 @@ def test_data(length):
     print "-----------------"
     print "01 data，CUTE causality test："
     print "BH:" + str(bh_procedure(p_array2, 0.05) / 1000.0)
+    print bh_procedure(p_array3, 0.05)
 
 
 def test_significance(length):

@@ -35,7 +35,7 @@ def collect_data():
 
 
 def read_hydraulic_pressure(name):
-    worksheet = xlrd.open_workbook('data/2.5.xlsx')
+    worksheet = xlrd.open_workbook('data/2-20.xlsx')
     #sheet_names = worksheet.sheet_names()
     sheet = worksheet.sheet_by_name(name)
     time = sheet.col_values(0)[1:-1]
@@ -101,13 +101,13 @@ def read_long_data(sub_length):
 
 
 def read_sin_data():
-    worksheet = xlrd.open_workbook('data/4.xlsx')
+    worksheet = xlrd.open_workbook('data/tixingbo.xlsx')
     sheet = worksheet.sheet_by_name('Sheet1')
-    time = sheet.col_values(0)[1:-1]
-    input = sheet.col_values(1)[1:-1]
-    output1 = sheet.col_values(2)[1:-1]
-    output2 = sheet.col_values(3)[1:-1]
-    output3 = sheet.col_values(4)[1:-1]
+    time = sheet.col_values(0)[1:5000]
+    input = sheet.col_values(1)[1:5000]
+    output1 = sheet.col_values(2)[1:5000]
+    output2 = sheet.col_values(3)[1:5000]
+    output3 = sheet.col_values(4)[1:5000]
     return input,output1,output2,output3
 
 
@@ -226,6 +226,7 @@ def read_ozone():
 
 
 def river_test():
+    length = 6
     date_time, speyer, mannheim, worms, mainz = collect_data()
     counter = 0
     speyer_low = []
@@ -246,8 +247,13 @@ def river_test():
     effect = mannheim
     cause = zero_change(cause)
     effect = zero_change(effect)
-    sp2ma = calculate_difference3(cause, effect, 10)
-    ma2sp = calculate_difference3(effect, cause, 10)
+
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    sp2ma = bernoulli2(effect,length) - cbernoulli2(effect, cause,length)
+    ma2sp = bernoulli2(cause,length) - cbernoulli2(cause, effect,length)
+    #sp2ma = calculate_difference3(cause, effect, 10)
+    #ma2sp = calculate_difference3(effect, cause, 10)
     print 'sp' + ' -> ' + 'ma' + ':' + str(sp2ma)
     print 'ma' + ' -> ' + 'sp' + ':' + str(ma2sp)
     print
@@ -255,8 +261,13 @@ def river_test():
     effect = worms
     cause = zero_change(cause)
     effect = zero_change(effect)
-    sp2wo = calculate_difference3(cause, effect, 10)
-    wo2sp = calculate_difference3(effect, cause, 10)
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    sp2wo = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    wo2sp = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #sp2wo = calculate_difference3(cause, effect, 10)
+    #wo2sp = calculate_difference3(effect, cause, 10)
     print 'sp' + ' -> ' + 'wo' + ':' + str(sp2wo)
     print 'wo' + ' -> ' + 'sp' + ':' + str(wo2sp)
     print
@@ -264,8 +275,13 @@ def river_test():
     effect = mainz
     cause = zero_change(cause)
     effect = zero_change(effect)
-    sp2mz = calculate_difference3(cause, effect, 10)
-    mz2sp = calculate_difference3(effect, cause, 10)
+
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    sp2mz = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    mz2sp = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+    #sp2mz = calculate_difference3(cause, effect, 10)
+    #mz2sp = calculate_difference3(effect, cause, 10)
     print 'sp' + ' -> ' + 'mz' + ':' + str(sp2mz)
     print 'mz' + ' -> ' + 'sp' + ':' + str(mz2sp)
     print
@@ -273,8 +289,14 @@ def river_test():
     effect = worms
     cause = zero_change(cause)
     effect = zero_change(effect)
-    ma2wo = calculate_difference3(cause, effect, 10)
-    wo2ma = calculate_difference3(effect, cause, 10)
+
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    ma2wo = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    wo2ma = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #ma2wo = calculate_difference3(cause, effect, 10)
+    #wo2ma = calculate_difference3(effect, cause, 10)
     print 'ma' + ' -> ' + 'wo' + ':' + str(ma2wo)
     print 'wo' + ' -> ' + 'ma' + ':' + str(wo2ma)
     print
@@ -282,8 +304,14 @@ def river_test():
     effect = mainz
     cause = zero_change(cause)
     effect = zero_change(effect)
-    ma2mz= calculate_difference3(cause, effect, 10)
-    mz2ma = calculate_difference3(effect, cause, 10)
+
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    ma2mz = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    mz2ma = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #ma2mz= calculate_difference3(cause, effect, 10)
+    #mz2ma = calculate_difference3(effect, cause, 10)
     print 'ma' + ' -> ' + 'mz' + ':' + str(ma2mz)
     print 'mz' + ' -> ' + 'ma' + ':' + str(mz2ma)
     print
@@ -291,14 +319,21 @@ def river_test():
     effect = mainz
     cause = zero_change(cause)
     effect = zero_change(effect)
-    wo2mz = calculate_difference3(cause, effect, 10)
-    mz2wo = calculate_difference3(effect, cause, 10)
+
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    wo2mz = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    mz2wo = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #wo2mz = calculate_difference3(cause, effect, 10)
+    #mz2wo = calculate_difference3(effect, cause, 10)
     print 'wo' + ' -> ' + 'mz' + ':' + str(wo2mz)
     print 'mz' + ' -> ' + 'wo' + ':' + str(mz2wo)
     print
 
 
 def river_test2():
+    length = 6
     date_time, fremersdorf, hanweiler, sanktarnual = collect_data2()
     fremersdorf = map(float,fremersdorf)
     hanweiler = map(float, hanweiler)
@@ -306,16 +341,32 @@ def river_test2():
     fremersdorf = zero_change(fremersdorf)
     hanweiler = zero_change(hanweiler)
     sanktarnual = zero_change(sanktarnual)
-    delta_fr_to_hw = calculate_difference3(fremersdorf,hanweiler,10)
-    delta_hw_to_fr = calculate_difference3(hanweiler,fremersdorf,10)
+
+    cause = change_to_zero_one(fremersdorf)
+    effect = change_to_zero_one(hanweiler)
+    delta_fr_to_hw = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    delta_hw_to_fr = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #delta_fr_to_hw = calculate_difference3(fremersdorf,hanweiler,10)
+    #delta_hw_to_fr = calculate_difference3(hanweiler,fremersdorf,10)
     print "fr->hw =", delta_fr_to_hw, " hw->fr =", delta_hw_to_fr
 
-    delta_sa_to_hw =calculate_difference3(sanktarnual,hanweiler,10)
-    delta_hw_to_sa = calculate_difference3(hanweiler,sanktarnual,10)
+    cause = change_to_zero_one(sanktarnual)
+    effect = change_to_zero_one(hanweiler)
+    delta_sa_to_hw = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    delta_hw_to_sa = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #delta_sa_to_hw =calculate_difference3(sanktarnual,hanweiler,10)
+    #delta_hw_to_sa = calculate_difference3(hanweiler,sanktarnual,10)
     print "sa->hw =", delta_sa_to_hw, " hw->sa =", delta_hw_to_sa
 
-    delta_fr_to_sa = calculate_difference3(fremersdorf,sanktarnual,10)
-    delta_sa_to_fr = calculate_difference3(sanktarnual,fremersdorf,10)
+    cause = change_to_zero_one(fremersdorf)
+    effect = change_to_zero_one(sanktarnual)
+    delta_fr_to_sa = bernoulli2(effect, length) - cbernoulli2(effect, cause, length)
+    delta_sa_to_fr = bernoulli2(cause, length) - cbernoulli2(cause, effect, length)
+
+    #delta_fr_to_sa = calculate_difference3(fremersdorf,sanktarnual,10)
+    #delta_sa_to_fr = calculate_difference3(sanktarnual,fremersdorf,10)
     print "fr->sa =", delta_fr_to_sa, " sa->fr =", delta_sa_to_fr
 
 
@@ -504,28 +555,37 @@ def test_granger_h():
 def test_sin():
     input, output1, output2, output3 = read_sin_data()
 
-    noise1 = np.random.normal(0, 0.1, 100)
-    noise2 = np.random.normal(0, 0.1, 100)
-    cause = input[0:113]
-    cause.extend(noise1)
-    cause.extend(input[113:-1])
-    effect = output2[0:113]
-    effect.extend(noise2)
-    effect.extend(output2[113:-1])
+    #noise1 = np.random.normal(0, 0.1, 100)
+    #noise2 = np.random.normal(0, 0.1, 100)
+    #cause = input[0:113]
+    #cause.extend(noise1)
+    #cause.extend(input[113:-1])
+    #effect = output2[0:113]
+    #effect.extend(noise2)
+    #effect.extend(output2[113:-1])
 
     #for i in range(0,len(effect)):
         #effect[i] = effect[i]+np.random.normal(0, 0.3, 1)[0]
 
 
-    #cause = input
-    #effect = output3
-
+    cause = input
+    effect = output1
+    noise  = np.random.normal(0, 0.5, len(effect))
+    noise2 = np.random.normal(0, 0.5, len(effect))
+    for i in range(0,len(effect)):
+        cause[i] = cause[i]+noise[i]
+        effect[i] = effect[i]+noise2[i]
+    print cause
+    print effect
+    plt.plot(cause)
+    plt.plot(effect)
+    plt.show()
     #cause = normalize(cause)
     #cause = zero_change(cause)
     #effect = normalize(effect)
     #effect = zero_change(effect)
-    #cause2effect = calculate_difference3(cause, effect, 10)
-    #effect2cause = calculate_difference3(effect, cause, 10)
+    #cause2effect = calculate_difference3(cause, effect, 100)
+    #effect2cause = calculate_difference3(effect, cause, 100)
 
     cause = change_to_zero_one(cause)
     effect = change_to_zero_one(effect)
@@ -538,25 +598,68 @@ def test_sin():
     print p
 
 
+def test_sin2(c,e):
+    cause = c
+    effect = e
+    #cause = normalize(cause)
+    cause = zero_change(cause)
+    #effect = normalize(effect)
+    effect = zero_change(effect)
+    cause2effect = calculate_difference3(cause, effect, 100)
+    effect2cause = calculate_difference3(effect, cause, 100)
+
+    print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
+    print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+    p = math.pow(2, -(cause2effect - effect2cause))
+    print p
+
+
+def test_sin3(c,e):
+    cause = c
+    effect = e
+    cause = change_to_zero_one(cause)
+    effect = change_to_zero_one(effect)
+    cause2effect = bernoulli(effect) - cbernoulli(effect, cause)
+    effect2cause = bernoulli(cause) - cbernoulli(cause, effect)
+    print 'cause' + ' -> ' + 'effect' + ':' + str(cause2effect)
+    print 'effect' + ' -> ' + 'cause' + ':' + str(effect2cause)
+    p = math.pow(2, -(cause2effect - effect2cause))
+    print p
+
+
 def test_sin_granger():
     input, output1, output2, output3 = read_sin_data()
-
-
     cause = input
-    effect = output2
+    effect = output1
+
+    noise = np.random.normal(0, 0.5, len(effect))
+    noise2 = np.random.normal(0, 0.5, len(effect))
+    for i in range(0,len(effect)):
+        cause[i] = cause[i]+noise[i]
+        effect[i] = effect[i]+noise2[i]
+    print(cause)
+    print(effect)
+    cause_tmp = list(cause)
+    effect_tmp = list(effect)
+    plt.plot(cause)
+    plt.plot(effect)
+    plt.show()
     p1 = granger(cause, effect, -1)
     p2 = granger(effect, cause, -1)
-    print p1
-    print p2
+    print 'cause->effect'+str(p1)
+    print 'effect->cause'+str(p2)
+
+    test_sin2(cause_tmp,effect_tmp)
+    test_sin3(cause_tmp,effect_tmp)
 
 
 def test_CUTE(length):
-    #time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure(
-    #    'Sheet1')
-    input, output1, output2, output3 = read_sin_data()
-    #cause = control
+    time, control, valve_position, system_pressure, a_pressure, b_pressure, t_pressure, flow, valve_pressure, load = read_hydraulic_pressure(
+        'Sheet1')
+    #input, output1, output2, output3 = read_sin_data()
+    cause = control
     #cause.extend(noise1)
-    #effect = valve_position
+    effect = valve_position
 
     #cause, effect = read_long_data(100)
     #plt.plot(cause)
@@ -564,16 +667,16 @@ def test_CUTE(length):
     #ozone,temp = read_ozone()
     noise1 = np.random.normal(0, 0.3, 50)
     noise2 = np.random.normal(0, 0.3, 50)
-    cause = input[0:113]
-    cause.extend(noise1)
-    cause.extend(input[113:-1])
-    effect = output1[0:113]
-    effect.extend(noise2)
-    effect.extend(output1[113:-1])
+    #cause = input[0:113]
+    #cause.extend(noise1)
+    #cause.extend(input[113:-1])
+    #effect = output1[0:113]
+    #effect.extend(noise2)
+    #effect.extend(output1[113:-1])
 
     #for i in range(0,len(effect)):
         #effect[i] = effect[i]+np.random.normal(0, 0.1, 1)[0]
-    cause,effect = read_long_data(200)
+    #cause,effect = read_long_data(200)
     plt.plot(cause)
     plt.plot(effect)
     plt.show()
@@ -598,9 +701,10 @@ def test_CUTE(length):
 #river_test2()
 #read_hydraulic_pressure()
 
-test_h()
+#test_h()
 #test_granger_h()
 
-test_CUTE(10)
+#test_CUTE(10)
+
 #test_sin()
-#test_sin_granger()
+test_sin_granger()

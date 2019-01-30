@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b41aee6-8deb-4486-ab30-5aaf014157a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GMM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GMM.py" beforeDir="false" afterPath="$PROJECT_DIR$/GMM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Util2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/3.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/3.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/granger_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/granger_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/real_data_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_data_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulate.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
@@ -19,10 +19,10 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/TimeSeriesCausality$GMM.coverage" NAME="GMM Coverage Results" MODIFIED="1548215316442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TimeSeriesCausality$Util.coverage" NAME="Util Coverage Results" MODIFIED="1547451503043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/TimeSeriesCausality$test.coverage" NAME="test Coverage Results" MODIFIED="1548303776941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/TimeSeriesCausality$real_data_test.coverage" NAME="real_data_test Coverage Results" MODIFIED="1548301537493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TimeSeriesCausality$test.coverage" NAME="test Coverage Results" MODIFIED="1548774667526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TimeSeriesCausality$real_data_test.coverage" NAME="real_data_test Coverage Results" MODIFIED="1548773921439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TimeSeriesCausality$granger_test.coverage" NAME="granger_test Coverage Results" MODIFIED="1547897620452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/TimeSeriesCausality$Util2.coverage" NAME="Util2 Coverage Results" MODIFIED="1548301671418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TimeSeriesCausality$Util2.coverage" NAME="Util2 Coverage Results" MODIFIED="1548334351924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -43,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
+            <state relative-caret-position="1596">
+              <caret line="93" column="9" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
               <folding>
                 <element signature="e#17#50#0" expanded="true" />
               </folding>
@@ -55,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Util2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5502">
-              <caret line="328" column="47" lean-forward="true" selection-start-line="328" selection-start-column="47" selection-end-line="328" selection-end-column="47" />
+            <state relative-caret-position="115">
+              <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -67,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/snml.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="-2187">
+              <caret line="39" column="6" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
               <folding>
                 <element signature="e#266#297#0" expanded="true" />
               </folding>
@@ -80,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/data/ozone3.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="247">
-              <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -88,7 +88,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1202">
+            <state relative-caret-position="76">
               <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -100,8 +100,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+            <state relative-caret-position="-1414">
+              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
               <folding>
                 <element signature="e#17#30#0" expanded="true" />
               </folding>
@@ -112,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GMM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+            <state relative-caret-position="285">
+              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -121,8 +121,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/granger_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+            <state relative-caret-position="134">
+              <caret line="12" column="17" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -130,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/real_data_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+            <state relative-caret-position="77">
+              <caret line="629" column="4" selection-start-line="629" selection-start-column="4" selection-end-line="629" selection-end-column="4" />
               <folding>
                 <element signature="e#45#80#0" expanded="true" />
               </folding>
@@ -159,14 +159,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print</find>
-      <find>decide_type</find>
-      <find>decide_p</find>
-      <find>calculate_mean</find>
-      <find>cause-&gt;effect</find>
-      <find>cause -&gt; effect</find>
-      <find>calculate_d</find>
-      <find>dec</find>
       <find>10</find>
       <find>tmp</find>
       <find>calculate_mean_and_std2</find>
@@ -185,10 +177,18 @@
       <find>snml</find>
       <find>mix</find>
       <find>change_to_zero_one</find>
-      <find>error</find>
       <find>saa</find>
       <find>noise</find>
       <find>read_long</find>
+      <find>forw</find>
+      <find>ozone</find>
+      <find>two</find>
+      <find>err</find>
+      <find>no</find>
+      <find>error</find>
+      <find>print</find>
+      <find>p_array1</find>
+      <find>p_array_improve_CUTE1</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -202,19 +202,19 @@
         <option value="$PROJECT_DIR$/fastncdf_data.py" />
         <option value="$PROJECT_DIR$/fastn_cdf.py" />
         <option value="$PROJECT_DIR$/snml.py" />
-        <option value="$PROJECT_DIR$/granger_test.py" />
         <option value="$PROJECT_DIR$/Util.py" />
         <option value="$PROJECT_DIR$/GMM.py" />
         <option value="$PROJECT_DIR$/simulate.py" />
-        <option value="$PROJECT_DIR$/real_data_test.py" />
         <option value="$PROJECT_DIR$/Util2.py" />
+        <option value="$PROJECT_DIR$/granger_test.py" />
+        <option value="$PROJECT_DIR$/real_data_test.py" />
         <option value="$PROJECT_DIR$/test.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="561" />
-    <option name="y" value="127" />
+    <option name="x" value="571" />
+    <option name="y" value="437" />
     <option name="width" value="1555" />
     <option name="height" value="840" />
   </component>
@@ -381,8 +381,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.Util2" />
         <item itemvalue="Python.real_data_test" />
+        <item itemvalue="Python.Util2" />
         <item itemvalue="Python.GMM" />
         <item itemvalue="Python.granger_test" />
       </list>
@@ -416,37 +416,49 @@
       <workItem from="1548051904337" duration="18776000" />
       <workItem from="1548119227190" duration="16617000" />
       <workItem from="1548204180830" duration="12520000" />
-      <workItem from="1548291568952" duration="5032000" />
+      <workItem from="1548291568952" duration="22770000" />
+      <workItem from="1548384589881" duration="8831000" />
+      <workItem from="1548461002316" duration="2507000" />
+      <workItem from="1548593701688" duration="598000" />
+      <workItem from="1548636096919" duration="28896000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="307203000" />
+    <option name="totallyTimeSpent" value="365773000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.28619304" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.30227882" />
       <window_info id="Structure" order="1" sideWeight="0.5007072" side_tool="true" weight="0.22989276" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932975" visible="true" weight="0.5594901" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.28470254" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.35410765" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.25070822" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3286119" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.32152975" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3286119" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.3297587" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.30764076" />
       <window_info anchor="right" id="Database" order="4" weight="0.3297587" />
     </layout>
   </component>
@@ -468,12 +480,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_test.py</url>
-          <line>377</line>
+          <line>428</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_test.py</url>
-          <line>423</line>
+          <line>474</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -488,7 +500,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test.py</url>
-          <line>195</line>
+          <line>260</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -498,17 +510,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_test.py</url>
-          <line>308</line>
+          <line>349</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_test.py</url>
-          <line>582</line>
+          <line>685</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/real_data_test.py</url>
-          <line>556</line>
+          <line>659</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -518,12 +530,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GMM.py</url>
-          <line>44</line>
+          <line>46</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test.py</url>
-          <line>80</line>
+          <line>126</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -531,8 +543,28 @@
           <line>16</line>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/simulate.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>329</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>113</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="effect" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/Python27/Lib/ntpath.py">
@@ -596,6 +628,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1596">
+          <caret line="93" column="9" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+          <folding>
+            <element signature="e#17#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/ozone3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GMM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/gdpLongReal.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -603,23 +659,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/ozone3.txt">
+    <entry file="file://$PROJECT_DIR$/Util2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/granger_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+        <state relative-caret-position="115">
+          <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1202">
+        <state relative-caret-position="76">
           <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -627,10 +679,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/granger_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/real_data_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+        <state relative-caret-position="77">
+          <caret line="629" column="4" selection-start-line="629" selection-start-column="4" selection-end-line="629" selection-end-column="4" />
           <folding>
             <element signature="e#45#80#0" expanded="true" />
           </folding>
@@ -639,45 +698,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/snml.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="-2187">
+          <caret line="39" column="6" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
           <folding>
             <element signature="e#266#297#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
-          <folding>
-            <element signature="e#17#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Util2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5502">
-          <caret line="328" column="47" lean-forward="true" selection-start-line="328" selection-start-column="47" selection-end-line="328" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GMM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+        <state relative-caret-position="-1414">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
           <folding>
             <element signature="e#17#30#0" expanded="true" />
           </folding>

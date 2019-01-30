@@ -17,7 +17,7 @@ def granger(cause,effect,lag):
     model = VAR(data)
     try:
         if lag == -1:
-            results = model.fit(maxlags=15, ic='aic', trend='nc')
+            results = model.fit(maxlags=100, ic='aic', trend='nc')
         else:
             results = model.fit(lag)
         x = results.test_causality('effect', 'cause', kind='wald').summary().data

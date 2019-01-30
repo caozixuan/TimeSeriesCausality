@@ -5,7 +5,7 @@ import math
 def generate_continue_data(length, shift):
     cause = []
     main = np.random.normal(0, 1, length)
-    noise = np.random.normal(0, 0.2, length)
+    noise = np.random.normal(0, 0.1, length)
     for i in range(0, length):
         if i == 0:
             cause.append(main[i])
@@ -14,12 +14,12 @@ def generate_continue_data(length, shift):
     effect = forward_shift_continue_data(cause, shift)
     for j in range(0, length):
         effect[j] = effect[j] + noise[j]
-    for x in range(0, len(effect)):
+    #for x in range(0, len(effect)):
         #effect[x] = effect[x] + abs(min(effect)) + 0.1
-        #effect[x] = math.log(effect[x], 2)
+        #effect[x] = 1.0/effect[x]#math.pow(effect[x], 3)
         #if effect[x]<0:
             #effect[x] = effect[x]/2
-        effect[x] = math.tanh(effect[x])
+        #effect[x] = math.tanh(effect[x])
     return cause, effect
 
 import random
@@ -42,7 +42,7 @@ def generate_continue_data_with_change_lag(length, segment_length):
             end = (counter+1)*segment_length
         else:
             end = length
-        lag = random.randint(1,3)
+        lag = random.randint(1,6)
         for i in range(start+lag,min([end+lag,length])):
             effect[i] = cause[i-lag]
         head+=segment_length

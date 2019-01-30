@@ -14,9 +14,11 @@ def GMM(k,n):
     wsum=np.sum(w)
     w=w/wsum
     wsumt=0
-    mu=2*np.random.rand(1,k)-1
+    #mu=2*np.random.rand(1,k)-1
     level=np.zeros(k)
-    sigma=10*np.random.rand(1,k)
+    #sigma=10*np.random.rand(1,k)
+    mu = np.random.rand(1, k) - 0.5
+    sigma = 0.5 * np.random.rand(1, k)
     X=[]
     for ii in range(k):
         wsumt+=w[0][ii]

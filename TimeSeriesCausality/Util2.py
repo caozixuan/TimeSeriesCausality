@@ -315,8 +315,8 @@ def calculate_difference(cause, effect, length):
 
 
 def calculate_difference2(cause, effect, length):
-    cause_type = get_type_array(cause, length)
-    effect_type = get_type_array(effect, length)
+    cause_type = get_type_array3(cause, length)
+    effect_type = get_type_array3(effect, length)
     cause_zero_one = change_type_to_zero_one_code(cause_type)
     effect_zero_one = change_type_to_zero_one_code(effect_type)
     print cause_zero_one
